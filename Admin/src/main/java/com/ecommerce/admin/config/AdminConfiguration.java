@@ -76,7 +76,7 @@ public class AdminConfiguration  {
                 .formLogin(form -> form
                         .loginPage("/login")  // Custom login page
                         .loginProcessingUrl("/do-login")  // URL for processing login form submission
-                        .defaultSuccessUrl("/admin/index")  // Default URL on successful login
+                        .defaultSuccessUrl("/index")  // Default URL on successful login
                         .permitAll()
                 )
                 .logout(logout -> logout
