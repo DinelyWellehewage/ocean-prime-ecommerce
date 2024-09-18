@@ -4,11 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -68,8 +66,12 @@ public class AdminConfiguration  {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/*").permitAll()  // Allows access to all paths
-                        .requestMatchers("/admin/*").hasAuthority("ADMIN")  // Restricts access to users with "ADMIN" authority for "/admin/*"
+                        // Allow access to static resources
+                        .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
+                        // Allow access to the root and other non-admin paths
+                        .requestMatchers("/**").permitAll()
+                        // Restrict access to /admin paths to users with "ADMIN" authority
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")  // Custom login page
