@@ -25,13 +25,6 @@
             </nav>
             <!-- End of Topbar -->
 
-
-<!--            <div th:if="${success}" class="text-center alert alert-success">-->
-<!--                <p th:text="${success}"></p>-->
-<!--            </div>-->
-<!--            <div th:if="${failed}" class="text-center alert alert-danger">-->
-<!--                <p th:text="${failed}"></p>-->
-<!--            </div>-->
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <form class="form-horizontal" th:action="@{/save-product}" method="post" enctype="multipart/form-data" th:object="${product}">

@@ -2,6 +2,7 @@ package com.ecommerce.admin.controller;
 
 import com.ecommerce.library.dto.ProductDto;
 import com.ecommerce.library.model.Category;
+import com.ecommerce.library.model.Product;
 import com.ecommerce.library.service.CategoryService;
 import com.ecommerce.library.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,54 @@ public class ProductController {
     }
 
     @GetMapping("/update-product/{id}")
-    public String updateProductForm(@PathVariable("id") Long id,Model model){
+    public String updateProductForm(@PathVariable("id") Long id,Model model,Principal principal){
+        if (principal==null){
+            return "redirect:/login";
+        }
+        model.addAttribute("title","Update products");
+        List<Category> categories = categoryService.findAllByActivated();
+        ProductDto productDto  = productService.getById(id);
+        model.addAttribute("categories",categories);
+        model.addAttribute("productDto",productDto);
         return "update-product";
     }
 
+    @PostMapping("/update-product/{id}")
+    public String processUpdate(@PathVariable("id") Long id,@ModelAttribute("productDto") ProductDto productDto,
+                                @RequestParam("imageProduct") MultipartFile imageproduct,
+                                RedirectAttributes attributes){
+
+        try {
+            productService.update(imageproduct,productDto);
+            attributes.addFlashAttribute("success","Update successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error","Failed to update");
+        }
+        return "redirect:/products";
+    }
+
+    @RequestMapping(value = "/enable-product/{id}",method = {RequestMethod.PUT,RequestMethod.GET})
+    public String enableProduct(@PathVariable("id")Long id,RedirectAttributes attributes){
+        try {
+            productService.enableById(id);
+            attributes.addFlashAttribute("success","Enabled successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/products";
+
+    }
+    @RequestMapping(value = "/delete-product/{id}",method = {RequestMethod.PUT,RequestMethod.GET})
+    public String deleteProduct(@PathVariable("id") Long id,RedirectAttributes attributes){
+        try {
+            productService.deleteById(id);
+            attributes.addFlashAttribute("success","Deleted successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            attributes.addFlashAttribute("error","Failed to deleted");
+
+        }
+        return "redirect:/products";
+    }
 }
