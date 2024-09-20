@@ -12,6 +12,14 @@ import lombok.Data;
 @Table(name = "categories", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Category {
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")

@@ -5,6 +5,7 @@ import com.ecommerce.library.repository.CategoryRepository;
 import com.ecommerce.library.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,28 +14,37 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository repo;
+
     @Override
     public List<Category> findAll() {
         return repo.findAll();
     }
 
+
     @Override
     public Category save(Category category) {
+
         Category categorySave = new Category(category.getName());
         return repo.save(categorySave);
+
     }
 
     @Override
-    public Category getById(Long id) {
-        return repo.getById(id);
+    public Category findById(Long id) {
+        return repo.findById(id).get();
     }
 
     @Override
     public Category update(Category category) {
-        Category categoryUpdate = new Category();
-        categoryUpdate.setName(category.getName());
-        categoryUpdate.setIs_activated(category.isIs_activated());
-        categoryUpdate.setIs_deleted(category.isIs_deleted());
+        Category categoryUpdate = null;
+        try {
+            categoryUpdate = repo.findById(category.getId()).get();
+            categoryUpdate.setName(category.getName());
+            categoryUpdate.setIs_activated(category.isIs_activated());
+            categoryUpdate.setIs_deleted(category.isIs_deleted());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return repo.save(categoryUpdate);
     }
 
