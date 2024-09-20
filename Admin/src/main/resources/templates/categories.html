@@ -24,44 +24,49 @@
             <nav th:replace="fragments::topbar">
             </nav>
             <!-- End of Topbar -->
-            <div th:if="${size == 0}">
-                <p>No category</p>
-            </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-                    data-whatever="@mdo">Add new category
-            </button>
-            <div th:if="${success}" class="text-center alert alert-success">
-                <p th:text="${success}"></p>
-            </div>
-            <div th:if="${failed}" class="text-center alert alert-danger">
-                <p th:text="${failed}"></p>
-            </div>
-            <!-- Begin Page Content -->
-            <table class="table table-bordered" th:if="${size>0}">
-                <thead>
-                <tr>
-                    <th scope="col">Category Index</th>
-                    <th scope="col">Category Name</th>
-                    <th scope="col">Edit Category Name</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="category: ${categories}">
-                    <th scope="row" th:text="${category.id}">1</th>
-                    <td th:text="${category.name}"></td>
-                    <td>
-                        <a id="editButton" th:href="@{/findById(id=${category.id})}" class="btn btn-primary">Update</a>
-                    </td>
-                    <td>
-                        <a th:if="${category.is_activated}==true" th:href="@{/delete-category(id=${category.id})}" class="btn btn-warning">Deleted</a>
-                        <a th:if="${category.is_activated}==false" th:href="@{/enable-category(id=${category.id})}" class="btn btn-primary">Enabled</a>
-                    </td>
+            <div class="container-fluid">
+                <div th:if="${size == 0}">
+                    <p>No category</p>
+                </div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                        data-whatever="@mdo">Add new category
+                </button>
+                <div th:if="${success}" class="text-center alert alert-success">
+                    <p th:text="${success}"></p>
+                </div>
+                <div th:if="${failed}" class="text-center alert alert-danger">
+                    <p th:text="${failed}"></p>
+                </div>
+                <!-- Begin Page Content -->
+                <table class="table table-bordered" th:if="${size>0}">
+                    <thead>
+                    <tr>
+                        <th scope="col">Category Index</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Edit Category Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category: ${categories}">
+                        <th scope="row" th:text="${category.id}">1</th>
+                        <td th:text="${category.name}"></td>
+                        <td>
+                            <a id="editButton" th:href="@{/findById(id=${category.id})}"
+                               class="btn btn-primary">Update</a>
+                        </td>
+                        <td>
+                            <a th:if="${category.is_activated}==true" th:href="@{/delete-category(id=${category.id})}"
+                               class="btn btn-warning">Deleted</a>
+                            <a th:if="${category.is_activated}==false" th:href="@{/enable-category(id=${category.id})}"
+                               class="btn btn-primary">Enabled</a>
+                        </td>
 
-                </tr>
+                    </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- End of Main Content -->
 
@@ -116,7 +121,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" >Edit Category</h5>
+                    <h5 class="modal-title">Edit Category</h5>
 
                 </div>
                 <div class="modal-body">
