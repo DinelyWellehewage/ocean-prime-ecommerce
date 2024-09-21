@@ -28,12 +28,6 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <div>
-                    <form th:action="@{/search-result/0}" method="get">
-                        <input type="text" id="search" placeholder="Seach Products" name="keyword">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
                 <div th:if="${size==0}">
                     <p>No products in shop</p>
                 </div>
@@ -84,7 +78,7 @@
                     <ul class="pagination">
 
                         <li th:if="${currentPage !=0}" class="page-item">
-                            <a th:href="@{'/products/' + ${currentPage - 1} }" class="page-link">Previous</a>
+                            <a th:href="@{'/products/' + ${currentPage - 1}}" class="page-link">Previous</a>
                         </li>
                         <li th:each="i: ${#numbers.sequence(1, totalPages)}"
                             th:classappend="${currentPage==i-1? 'active':''}" class="page-item">
