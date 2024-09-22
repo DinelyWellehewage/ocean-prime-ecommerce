@@ -8,6 +8,7 @@
   <modules>
     <module>Library</module>
     <module>Admin</module>
+    <module>Customer</module>
   </modules>
 
   <name>Archetype - ECommerce-Springboot</name>
