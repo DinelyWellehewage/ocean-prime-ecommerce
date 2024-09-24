@@ -90,7 +90,7 @@ public class ProductController {
 
 
         }
-        return "redirect:/products";
+        return "redirect:/products/0";
     }
 
     @GetMapping("/update-product/{id}")
