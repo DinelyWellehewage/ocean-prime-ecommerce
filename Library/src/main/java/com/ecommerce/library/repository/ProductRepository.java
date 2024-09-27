@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
+    /*Admin*/
     @Query("select p from Product p")
     Page<Product> pageProduct(Pageable pageable);
 
@@ -20,9 +21,17 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("select p from Product p where p.description like %?1% or p.name like %?1%")
     List<Product> searchProductsList(String keyword);
 
+    /*Customer*/
     @Query("select p from Product p where p.is_activated = true and p.is_deleted=false")
     List<Product> getAllProducts();
 
     @Query(value = "select * from products p where p.is_deleted=false and p.is_activated=true order by rand() asc limit 4 ",nativeQuery = true)
     List<Product> listViewProducts();
+
+    @Query(value = "SELECT p.product_id, p.name,p.cost_price,p.current_quantity,p.image,p.is_activated,p.is_deleted,p.sale_price, p.description, p.category_id as product_category_id, " +
+            "c.category_id as category_id, c.name as category_name " +
+            "FROM products p " +
+            "INNER JOIN categories c ON c.category_id = p.category_id " +
+            "WHERE p.category_id = ?1", nativeQuery = true)
+    List<Product> getRelatedProducts(Long categoryId);
 }
