@@ -33,9 +33,9 @@ public class Customer {
     @Lob
     @Column(name = "image",columnDefinition = "MEDIUMBLOB")
     private String image;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "city_id",referencedColumnName = "city_id")
-    private City city;
+
+    @Column(name = "city")
+    private String city;
 
     @OneToOne(mappedBy = "customer")
     private ShoppingCart shoppingCart;
@@ -105,13 +105,6 @@ public class Customer {
         this.image = image;
     }
 
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
@@ -151,5 +144,13 @@ public class Customer {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
