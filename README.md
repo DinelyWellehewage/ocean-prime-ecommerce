@@ -114,13 +114,13 @@ Ocean Prime E-Commerce
 └── .gitignore
 ```
 
-Ocean Prime 
+**Ocean Prime Customer Facing Web Application**
 
 ![screen-capture1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/90d173ef-558a-40d1-b890-45c5b1ba8bb1)
 
 
-
-Admin Dashboard
+---
+**Admin Dashboard**
 ![Screenshot 2025-01-19 224308](https://github.com/user-attachments/assets/82690f08-5435-4475-bdb8-958172d6f154)
 
 ## Contact
