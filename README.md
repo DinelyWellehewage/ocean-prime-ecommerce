@@ -94,9 +94,6 @@ Ocean Prime is a fully-featured e-commerce application designed to provide a sea
 - **Admin**:
   - Log in to manage products, users, and orders.
 
-### Default Admin Credentials
-- Email: `admin@oceanprime.com`
-- Password: `admin123`
 
 ## Folder Structure
 ```
